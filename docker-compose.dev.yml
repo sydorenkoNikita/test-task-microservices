@@ -1,0 +1,35 @@
+services:
+  user-service:
+    build:
+      context: .
+      target: deps
+    ports:
+      - '3001:3001'
+    environment:
+      - PORT=3001
+      - NOTIFICATION_SERVICE_URL=http://notification-service:3002
+    depends_on:
+      - notification-service
+    volumes:
+      - ./apps/user-service:/app/apps/user-service
+      - ./libs:/app/libs
+      - ./nest-cli.json:/app/nest-cli.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./tsconfig.build.json:/app/tsconfig.build.json
+    command: pnpm run start:dev:user-service
+
+  notification-service:
+    build:
+      context: .
+      target: deps
+    ports:
+      - '3002:3002'
+    environment:
+      - PORT=3002
+    volumes:
+      - ./apps/notification-service:/app/apps/notification-service
+      - ./libs:/app/libs
+      - ./nest-cli.json:/app/nest-cli.json
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./tsconfig.build.json:/app/tsconfig.build.json
+    command: pnpm run start:dev:notification-service

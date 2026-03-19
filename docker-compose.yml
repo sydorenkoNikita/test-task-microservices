@@ -1,0 +1,25 @@
+services:
+  user-service:
+    build:
+      context: .
+      args:
+        SERVICE_NAME: user
+    ports:
+      - '3001:3001'
+    environment:
+      - PORT=3001
+      - NOTIFICATION_SERVICE_URL=http://notification-service:3002
+    depends_on:
+      - notification-service
+    restart: unless-stopped
+
+  notification-service:
+    build:
+      context: .
+      args:
+        SERVICE_NAME: notification
+    ports:
+      - '3002:3002'
+    environment:
+      - PORT=3002
+    restart: unless-stopped
