@@ -1,11 +1,14 @@
-import { Get } from '@nestjs/common';
-import { NotificationServiceService } from '@modules/notification/service';
+import { Body, Controller, Get } from '@nestjs/common';
+import { Notification } from '@db/notification/entity/notification';
+import { NotificationService } from '@modules/notification/service';
+import { GetNotificationDto } from '@app/shared/dto/get-notification.dto';
 
+@Controller('notification')
 export class NotificationServiceController {
-  constructor(private readonly notificationServiceService: NotificationServiceService) {}
+  constructor(private readonly notificationService: NotificationService) {}
 
   @Get()
-  getOne(): string {
-    return this.notificationServiceService.getOne();
+  getOne(@Body() getNotificationDto: GetNotificationDto): Promise<Notification> {
+    return this.notificationService.getOne(getNotificationDto);
   }
 }

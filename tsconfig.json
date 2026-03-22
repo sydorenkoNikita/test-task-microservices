@@ -18,16 +18,8 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@modules/*": [
-        "apps/user-service/src/modules/*",
-        "apps/notification-service/src/modules/*"
-      ],
-      "@app/shared": [
-        "libs/shared/src"
-      ],
-      "@app/shared/*": [
-        "libs/shared/src/*"
-      ]
+      "@app/shared": ["libs/shared/src"],
+      "@app/shared/*": ["libs/shared/src/*"]
     }
   }
 }

@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test", "**/*spec.ts"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@modules/*": ["src/modules/*"],
+      "@app/shared": ["../../libs/shared/src"],
+      "@app/shared/*": ["../../libs/shared/src/*"],
+      "@db/*": ["src/modules/common/*", "src/modules/common/db/*"],
+    }
+  }
+}

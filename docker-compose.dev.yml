@@ -1,14 +1,42 @@
 services:
+  user-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${USER_DB_NAME}
+      POSTGRES_USER: ${USER_DB_USERNAME}
+      POSTGRES_PASSWORD: ${USER_DB_PASSWORD}
+    ports:
+      - '${USER_DB_HOST_PORT}:5432'
+    volumes:
+      - user-db-data:/var/lib/postgresql/data
+
+  notification-db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${NOTIFICATION_DB_NAME}
+      POSTGRES_USER: ${NOTIFICATION_DB_USERNAME}
+      POSTGRES_PASSWORD: ${NOTIFICATION_DB_PASSWORD}
+    ports:
+      - '${NOTIFICATION_DB_HOST_PORT}:5432'
+    volumes:
+      - notification-db-data:/var/lib/postgresql/data
+
   user-service:
     build:
       context: .
       target: deps
     ports:
-      - '3001:3001'
+      - '${USER_SERVICE_PORT}:${USER_SERVICE_PORT}'
     environment:
-      - PORT=3001
-      - NOTIFICATION_SERVICE_URL=http://notification-service:3002
+      DB_NAME: ${USER_DB_NAME}
+      PORT: ${USER_SERVICE_PORT}
+      DB_HOST: ${USER_SERVICE_DB_HOST}
+      DB_PORT: ${USER_SERVICE_DB_PORT}
+      DB_USERNAME: ${USER_DB_USERNAME}
+      DB_PASSWORD: ${USER_DB_PASSWORD}
+      NOTIFICATION_SERVICE_URL: ${NOTIFICATION_SERVICE_URL}
     depends_on:
+      - user-db
       - notification-service
     volumes:
       - ./apps/user-service:/app/apps/user-service
@@ -23,9 +51,17 @@ services:
       context: .
       target: deps
     ports:
-      - '3002:3002'
+      - '${NOTIFICATION_SERVICE_PORT}:${NOTIFICATION_SERVICE_PORT}'
     environment:
-      - PORT=3002
+      DB_NAME: ${NOTIFICATION_DB_NAME}
+      PORT: ${NOTIFICATION_SERVICE_PORT}
+      DB_HOST: ${NOTIFICATION_SERVICE_DB_HOST}
+      DB_PORT: ${NOTIFICATION_SERVICE_DB_PORT}
+      DB_USERNAME: ${NOTIFICATION_DB_USERNAME}
+      DB_PASSWORD: ${NOTIFICATION_DB_PASSWORD}
+    depends_on:
+      - notification-db
+      # - rabbitmq
     volumes:
       - ./apps/notification-service:/app/apps/notification-service
       - ./libs:/app/libs
@@ -33,3 +69,7 @@ services:
       - ./tsconfig.json:/app/tsconfig.json
       - ./tsconfig.build.json:/app/tsconfig.build.json
     command: pnpm run start:dev:notification-service
+
+volumes:
+  user-db-data:
+  notification-db-data:
