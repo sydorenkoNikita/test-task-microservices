@@ -18,6 +18,7 @@ export const databaseProviders = [
       });
 
       sequelize.addModels([User]);
+      await sequelize.sync();
 
       return sequelize;
     },

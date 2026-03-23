@@ -1,14 +1,14 @@
-import { UserDto } from '@db/user/dto/user.dto';
+import { UserDto } from '@app/shared/dto/user.dto';
+import { UserService } from '@modules/user/service';
 import { Body, Controller, Post } from '@nestjs/common';
-import { UserServiceService } from '@modules/user/service';
 import { CreateUserDto } from '@app/shared/dto/create-user.dto';
 
-@Controller()
+@Controller('users')
 export class UserServiceController {
-  constructor(private readonly userServiceService: UserServiceService) {}
+  constructor(private readonly userService: UserService) {}
 
-  @Post()
+  @Post('create')
   create(@Body() createUserDto: CreateUserDto): Promise<UserDto> {
-    return this.userServiceService.create(createUserDto);
+    return this.userService.create(createUserDto);
   }
 }

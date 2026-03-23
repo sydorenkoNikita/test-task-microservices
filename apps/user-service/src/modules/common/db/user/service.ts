@@ -1,6 +1,6 @@
 import { ScopeName } from '@db/user/scopes';
 import { User } from '@db/user/entity/user';
-import { UserDto } from '@db/user/dto/user.dto';
+import { UserDto } from '@app/shared/dto/user.dto';
 import { USERS_REPOSITORY } from '@db/user/providers';
 import { GetUserDto } from '@app/shared/dto/get-user.dto';
 import { CreateUserDto } from '@app/shared/dto/create-user.dto';

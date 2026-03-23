@@ -4,7 +4,7 @@ import { NOTIFICATIONS_REPOSITORY } from '@db/notification/providers';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { GetNotificationDto } from '@app/shared/dto/get-notification.dto';
 import { RECORD_DO_NOT_EXIST_ERROR } from '@app/shared/constants/constants';
-import { CreateNotificationDto } from '@app/shared/dto/create-notification.dto';
+import { CreateNotificationRecordDto } from '@app/shared/dto/create-notification-record.dto';
 
 @Injectable()
 export class NotificationDBClientService {
@@ -28,7 +28,7 @@ export class NotificationDBClientService {
     return notification;
   }
 
-  async create(dto: CreateNotificationDto): Promise<Notification> {
+  async create(dto: CreateNotificationRecordDto): Promise<Notification> {
     return this.notificationRepository.create(dto);
   }
 }

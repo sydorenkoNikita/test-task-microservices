@@ -20,6 +20,12 @@ export class Notification extends Model<Notification> {
     allowNull: false,
     type: DataType.STRING,
   })
+  message: string;
+
+  @Column({
+    allowNull: false,
+    type: DataType.STRING,
+  })
   userId: string;
 
   @Column({

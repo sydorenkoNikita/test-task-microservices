@@ -17,6 +17,7 @@ export const databaseProviders = [
       });
 
       sequelize.addModels([Notification]);
+      await sequelize.sync({ alter: true });
       return sequelize;
     },
   },
