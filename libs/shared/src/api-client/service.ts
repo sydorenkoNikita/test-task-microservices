@@ -1,7 +1,15 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
-import { AxiosError, AxiosRequestConfig } from 'axios';
-import { catchError, lastValueFrom, map, throwError } from 'rxjs';
+import {
+  AxiosError,
+  AxiosRequestConfig,
+} from 'axios';
+import {
+  catchError,
+  lastValueFrom,
+  map,
+  throwError,
+} from 'rxjs';
 
 @Injectable()
 export class ApiClientService {
@@ -16,7 +24,11 @@ export class ApiClientService {
     return lastValueFrom(observer);
   }
 
-  async post<T>(url: string, data?: any, config?: AxiosRequestConfig): Promise<T> {
+  async post<T>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<T> {
     const observer = this.httpService.post<T>(url, data, config).pipe(
       map((res) => res.data),
       catchError((err: AxiosError) => this.handleError(err)),

@@ -1,11 +1,5 @@
-export class UserDto {
-  id: string;
+export class UserCreatedEventDto {
   name: string;
   email: string;
-}
-
-export class UserCreatedDto {
   userId: string;
-  name: string;
-  email: string;
 }

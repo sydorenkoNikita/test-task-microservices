@@ -4,9 +4,12 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Notification } from '@db/notification/entity/notification';
 import { NotificationDBClientService } from '@db/notification/service';
-import { NotificationStatus } from '@app/shared/types/notification.types';
 import { CreateNotificationDto } from '@modules/notification/dto/create-notification.dto';
-import { BULL_NOTIFICATION_DELAY_MS, BULL_NOTIFICATION_QUEUE } from '@app/shared/constants/bull.constants';
+import {
+  NotificationStatus,
+  BULL_NOTIFICATION_QUEUE,
+  BULL_NOTIFICATION_DELAY_MS,
+} from '@app/shared';
 
 @Injectable()
 export class NotificationService {

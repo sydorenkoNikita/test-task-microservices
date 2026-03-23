@@ -1,6 +1,11 @@
 import { userScopes } from '@db/user/scopes';
-import { Column, DataType, Model, Scopes, Table } from 'sequelize-typescript';
-
+import {
+  Column,
+  DataType,
+  Model,
+  Scopes,
+  Table,
+} from 'sequelize-typescript';
 @Table({
   tableName: 'users',
   timestamps: false,
@@ -13,11 +18,11 @@ export class User extends Model<User> {
     allowNull: false,
     type: DataType.STRING,
   })
-  name: string;
+    name: string;
 
   @Column({
     allowNull: false,
     type: DataType.STRING,
   })
-  email: string;
+    email: string;
 }

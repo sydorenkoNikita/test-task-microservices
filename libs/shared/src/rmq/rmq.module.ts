@@ -1,7 +1,13 @@
+import { RMQ_SERVICE } from '@app/shared';
 import { ConfigService } from '@nestjs/config';
-import { DynamicModule, Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { RMQ_SERVICE } from '@app/shared/constants/rmq.constants';
+import {
+  Module,
+  DynamicModule,
+} from '@nestjs/common';
+import {
+  Transport,
+  ClientsModule,
+} from '@nestjs/microservices';
 
 @Module({})
 export class RmqModule {
@@ -16,7 +22,9 @@ export class RmqModule {
             useFactory: (config: ConfigService) => ({
               transport: Transport.RMQ,
               options: {
-                urls: [config.get<string>('RABBITMQ_URL', 'amqp://localhost:5672')],
+                urls: [
+                  config.get<string>('RABBITMQ_URL', 'amqp://localhost:5672'),
+                ],
                 queue,
                 queueOptions: { durable: true },
               },

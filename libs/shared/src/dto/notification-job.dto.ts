@@ -1,4 +1,4 @@
-import { NotificationStatus } from '@app/shared/types/notification.types';
+import { NotificationStatus } from '@app/shared';
 
 export class NotificationJobDto {
   sentAt: Date;

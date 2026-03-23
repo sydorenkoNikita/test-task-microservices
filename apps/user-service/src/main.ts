@@ -3,7 +3,9 @@ import { UserServiceModule } from '@modules/user/module';
 
 async function bootstrap() {
   const app = await NestFactory.create(UserServiceModule);
-  const port = Number(process.env.USER_SERVICE_PORT ?? process.env.PORT ?? 3001);
+  const port = Number(
+    process.env.USER_SERVICE_PORT ?? process.env.PORT ?? 3001,
+  );
 
   await app.listen(port);
 }

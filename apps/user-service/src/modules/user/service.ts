@@ -1,11 +1,17 @@
 import { lastValueFrom } from 'rxjs';
-import { UserDto } from '@app/shared/dto/user-created-event.dto';
+import { User } from '@db/user/entity/user';
 import { ClientProxy } from '@nestjs/microservices';
-import { Inject, Injectable } from '@nestjs/common';
 import { UserDbClientService } from '@db/user/service';
 import { GetUserDto } from '@modules/common/db/user/dto/get-user.dto';
 import { CreateUserDto } from '@modules/common/db/user/dto/create-user.dto';
-import { RMQ_NOTIFICATION_PATTERNS, RMQ_SERVICE } from '@app/shared/constants/rmq.constants';
+import {
+  RMQ_SERVICE,
+  RMQ_NOTIFICATION_PATTERNS,
+} from '@app/shared';
+import {
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 
 @Injectable()
 export class UserService {
@@ -14,11 +20,11 @@ export class UserService {
     @Inject(RMQ_SERVICE) private readonly rmqClient: ClientProxy,
   ) {}
 
-  async getOne({ id, email }: GetUserDto): Promise<UserDto> {
+  async getOne({ id, email }: GetUserDto): Promise<User> {
     return this.userDbClient.getOne({ id, email });
   }
 
-  async create(dto: CreateUserDto): Promise<UserDto> {
+  async create(dto: CreateUserDto): Promise<User> {
     const user = await this.userDbClient.create(dto);
 
     await lastValueFrom(

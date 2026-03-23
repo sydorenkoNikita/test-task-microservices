@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { HttpModule } from '@nestjs/axios';
-import { ApiClientService } from './service';
+import { ApiClientService } from '@app/shared/api-client/service';
 
 @Module({
   exports: [ApiClientService],

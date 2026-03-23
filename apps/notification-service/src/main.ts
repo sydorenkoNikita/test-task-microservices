@@ -1,12 +1,17 @@
 import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import {
+  Transport,
+  MicroserviceOptions,
+} from '@nestjs/microservices';
 import { NotificationServiceModule } from '@modules/notification/module';
-import { RMQ_NOTIFICATION_QUEUE } from '@app/shared/constants/rmq.constants';
+import { RMQ_NOTIFICATION_QUEUE } from '@app/shared';
 
 async function bootstrap() {
   const app = await NestFactory.create(NotificationServiceModule);
-  const port = Number(process.env.NOTIFICATION_SERVICE_PORT ?? process.env.PORT ?? 3002);
+  const port = Number(
+    process.env.NOTIFICATION_SERVICE_PORT ?? process.env.PORT ?? 3002,
+  );
   const config = app.get(ConfigService);
 
   app.connectMicroservice<MicroserviceOptions>({

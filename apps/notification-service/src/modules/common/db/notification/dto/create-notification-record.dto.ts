@@ -1,25 +1,31 @@
-import { NotificationStatus } from '@app/shared/types/notification.types';
-import { IsDate, IsEnum, IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { NotificationStatus } from '@app/shared';
+import {
+  IsUrl,
+  IsDate,
+  IsEnum,
+  IsString,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateNotificationRecordDto {
   @IsUrl()
   @IsString()
   @IsNotEmpty()
-  webhookUrl: string;
+    webhookUrl: string;
 
   @IsString()
   @IsNotEmpty()
-  message: string;
+    message: string;
 
   @IsString()
   @IsNotEmpty()
-  userId: string;
+    userId: string;
 
   @IsDate()
   @IsNotEmpty()
-  sentAt: Date;
+    sentAt: Date;
 
   @IsEnum(NotificationStatus)
   @IsNotEmpty()
-  status: NotificationStatus;
+    status: NotificationStatus;
 }
