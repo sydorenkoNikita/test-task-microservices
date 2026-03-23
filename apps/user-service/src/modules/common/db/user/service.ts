@@ -1,10 +1,10 @@
 import { ScopeName } from '@db/user/scopes';
 import { User } from '@db/user/entity/user';
-import { UserDto } from '@app/shared/dto/user.dto';
+import { UserDto } from '@app/shared/dto/user-created-event.dto';
 import { USERS_REPOSITORY } from '@db/user/providers';
-import { GetUserDto } from '@app/shared/dto/get-user.dto';
-import { CreateUserDto } from '@app/shared/dto/create-user.dto';
+import { GetUserDto } from '@modules/common/db/user/dto/get-user.dto';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
+import { CreateUserDto } from '@modules/common/db/user/dto/create-user.dto';
 import { RECORD_DO_NOT_EXIST_ERROR } from '@app/shared/constants/constants';
 
 @Injectable()

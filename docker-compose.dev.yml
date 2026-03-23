@@ -29,6 +29,19 @@ services:
       start_period: 5s
     restart: unless-stopped
 
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+    restart: unless-stopped
+
   notification-db:
     image: postgres:16-alpine
     environment:
@@ -85,8 +98,13 @@ services:
       DB_USERNAME: ${NOTIFICATION_DB_USERNAME}
       DB_PASSWORD: ${NOTIFICATION_DB_PASSWORD}
       RABBITMQ_URL: amqp://${RABBITMQ_USERNAME}:${RABBITMQ_PASSWORD}@${RABBITMQ_HOST}:${RABBITMQ_PORT}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     depends_on:
       rabbitmq:
+        condition: service_healthy
+      redis:
         condition: service_healthy
       notification-db:
         condition: service_started
@@ -101,4 +119,5 @@ services:
 volumes:
   user-db-data:
   rabbitmq-data:
+  redis-data:
   notification-db-data:

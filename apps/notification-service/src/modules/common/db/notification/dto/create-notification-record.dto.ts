@@ -1,5 +1,5 @@
+import { NotificationStatus } from '@app/shared/types/notification.types';
 import { IsDate, IsEnum, IsNotEmpty, IsString, IsUrl } from 'class-validator';
-import { NotificationStatus } from '@app/shared/types';
 
 export class CreateNotificationRecordDto {
   @IsUrl()

@@ -1,5 +1,5 @@
-import { NotificationStatus } from '@app/shared/types';
 import { notificationScopes } from '@db/notification/scopes';
+import { NotificationStatus } from '@app/shared/types/notification.types';
 import { Column, DataType, Model, Scopes, Table } from 'sequelize-typescript';
 
 @Table({

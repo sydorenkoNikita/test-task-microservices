@@ -2,9 +2,9 @@ import { ScopeName } from '@db/notification/scopes';
 import { Notification } from '@db/notification/entity/notification';
 import { NOTIFICATIONS_REPOSITORY } from '@db/notification/providers';
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { GetNotificationDto } from '@app/shared/dto/get-notification.dto';
 import { RECORD_DO_NOT_EXIST_ERROR } from '@app/shared/constants/constants';
-import { CreateNotificationRecordDto } from '@app/shared/dto/create-notification-record.dto';
+import { GetNotificationDto } from '@modules/common/db/notification/dto/get-notification.dto';
+import { CreateNotificationRecordDto } from '@modules/common/db/notification/dto/create-notification-record.dto';
 
 @Injectable()
 export class NotificationDBClientService {

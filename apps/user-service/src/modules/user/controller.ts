@@ -1,7 +1,7 @@
-import { UserDto } from '@app/shared/dto/user.dto';
+import { UserDto } from '@app/shared/dto/user-created-event.dto';
 import { UserService } from '@modules/user/service';
 import { Body, Controller, Post } from '@nestjs/common';
-import { CreateUserDto } from '@app/shared/dto/create-user.dto';
+import { CreateUserDto } from '@modules/common/db/user/dto/create-user.dto';
 
 @Controller('users')
 export class UserServiceController {

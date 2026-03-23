@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ConfigService } from '@nestjs/config';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { NotificationServiceModule } from '@modules/notification/module';
-import { NOTIFICATION_QUEUE } from '@app/shared/constants/rmq.constants';
+import { RMQ_NOTIFICATION_QUEUE } from '@app/shared/constants/rmq.constants';
 
 async function bootstrap() {
   const app = await NestFactory.create(NotificationServiceModule);
@@ -13,7 +13,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: [config.get<string>('RABBITMQ_URL', 'amqp://localhost:5672')],
-      queue: NOTIFICATION_QUEUE,
+      queue: RMQ_NOTIFICATION_QUEUE,
       noAck: false,
       queueOptions: { durable: true },
     },
