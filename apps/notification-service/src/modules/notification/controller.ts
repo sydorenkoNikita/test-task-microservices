@@ -9,8 +9,8 @@ import {
 import {
   UserCreatedEventDto,
   RMQ_NOTIFICATION_PATTERNS,
-  DEFAULT_NOTIFICATION_MESSAGE,
-} from '@app/shared';
+} from '@app/shared/contracts';
+import { DEFAULT_NOTIFICATION_MESSAGE } from '@modules/notification/constants/common.constants';
 
 @Controller('notifications')
 export class NotificationServiceController {

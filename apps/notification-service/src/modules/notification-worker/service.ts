@@ -3,11 +3,9 @@ import {
   Processor,
   WorkerHost,
 } from '@nestjs/bullmq';
-import {
-  ApiClientService,
-  NotificationJobDto,
-  BULL_NOTIFICATION_QUEUE,
-} from '@app/shared';
+import { ApiClientService } from '@app/shared/api-client/service';
+import { BULL_NOTIFICATION_QUEUE } from '@modules/notification/constants/bull.constants';
+import { NotificationJobDto } from '@modules/notification-worker/dto/notification-job.dto';
 
 @Processor(BULL_NOTIFICATION_QUEUE)
 export class NotificationWorkerService extends WorkerHost {

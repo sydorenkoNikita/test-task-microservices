@@ -1,12 +1,12 @@
-import { ScopeName } from '@db/notification/scopes';
-import { Notification } from '@db/notification/entity/notification';
-import { NOTIFICATIONS_REPOSITORY } from '@db/notification/providers';
 import {
   Inject,
   Injectable,
   BadRequestException,
 } from '@nestjs/common';
-import { RECORD_DO_NOT_EXIST_ERROR } from '@app/shared';
+import { ScopeName } from '@db/notification/scopes';
+import { RECORD_DO_NOT_EXIST_ERROR } from '@app/shared/constants';
+import { Notification } from '@db/notification/entity/notification';
+import { NOTIFICATIONS_REPOSITORY } from '@db/notification/providers';
 import { GetNotificationDto } from '@modules/common/db/notification/dto/get-notification.dto';
 import { CreateNotificationRecordDto } from '@modules/common/db/notification/dto/create-notification-record.dto';
 

@@ -1,23 +1,21 @@
-import { lastValueFrom } from 'rxjs';
-import { User } from '@db/user/entity/user';
-import { ClientProxy } from '@nestjs/microservices';
-import { UserDbClientService } from '@db/user/service';
-import { GetUserDto } from '@modules/common/db/user/dto/get-user.dto';
-import { CreateUserDto } from '@modules/common/db/user/dto/create-user.dto';
-import {
-  RMQ_SERVICE,
-  RMQ_NOTIFICATION_PATTERNS,
-} from '@app/shared';
 import {
   Inject,
   Injectable,
 } from '@nestjs/common';
+import { User } from '@db/user/entity/user';
+import { USER_EVENTS } from '@app/shared/contracts';
+import { UserDbClientService } from '@db/user/service';
+import { EVENT_PUBLISHER } from '@app/shared/constants';
+import { GetUserDto } from '@modules/common/db/user/dto/get-user.dto';
+import { CreateUserDto } from '@modules/common/db/user/dto/create-user.dto';
+import { EventPublisher } from '@app/shared/infrastructure/events/event-publisher';
 
 @Injectable()
 export class UserService {
   constructor(
     private readonly userDbClient: UserDbClientService,
-    @Inject(RMQ_SERVICE) private readonly rmqClient: ClientProxy,
+    @Inject(EVENT_PUBLISHER)
+    private readonly eventPublisher: EventPublisher,
   ) {}
 
   async getOne({ id, email }: GetUserDto): Promise<User> {
@@ -27,13 +25,11 @@ export class UserService {
   async create(dto: CreateUserDto): Promise<User> {
     const user = await this.userDbClient.create(dto);
 
-    await lastValueFrom(
-      this.rmqClient.emit(RMQ_NOTIFICATION_PATTERNS.USER_CREATED, {
-        userId: user.id,
-        name: user.name,
-        email: user.email,
-      }),
-    );
+    await this.eventPublisher.emit(USER_EVENTS.CREATED, {
+      userId: user.id,
+      name: user.name,
+      email: user.email,
+    });
     return user;
   }
 }

@@ -5,8 +5,8 @@ import {
   Scopes,
   DataType,
 } from 'sequelize-typescript';
-import { NotificationStatus } from '@app/shared';
 import { notificationScopes } from '@db/notification/scopes';
+import { NotificationStatus } from '@modules/common/db/notification/types/notification.types';
 
 @Table({
   tableName: 'notifications',

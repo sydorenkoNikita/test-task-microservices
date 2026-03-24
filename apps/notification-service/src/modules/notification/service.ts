@@ -1,15 +1,15 @@
 import { Queue } from 'bullmq';
-import { InjectQueue } from '@nestjs/bullmq';
 import { Injectable } from '@nestjs/common';
+import { InjectQueue } from '@nestjs/bullmq';
 import { ConfigService } from '@nestjs/config';
 import { Notification } from '@db/notification/entity/notification';
 import { NotificationDBClientService } from '@db/notification/service';
 import { CreateNotificationDto } from '@modules/notification/dto/create-notification.dto';
+import { NotificationStatus } from '@modules/common/db/notification/types/notification.types';
 import {
-  NotificationStatus,
   BULL_NOTIFICATION_QUEUE,
   BULL_NOTIFICATION_DELAY_MS,
-} from '@app/shared';
+} from '@modules/notification/constants/bull.constants';
 
 @Injectable()
 export class NotificationService {
@@ -33,10 +33,10 @@ export class NotificationService {
     });
   }
 
-  async addToQueue(dto: CreateNotificationDto): Promise<void> {
+  async addToQueue(dto: Notification): Promise<void> {
     await this.notificationQueue.add('send-notification', dto, {
-      delay: BULL_NOTIFICATION_DELAY_MS,
       removeOnComplete: true,
+      delay: BULL_NOTIFICATION_DELAY_MS,
     });
   }
 }

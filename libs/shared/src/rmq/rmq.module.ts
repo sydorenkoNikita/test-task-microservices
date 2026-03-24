@@ -1,5 +1,3 @@
-import { RMQ_SERVICE } from '@app/shared';
-import { ConfigService } from '@nestjs/config';
 import {
   Module,
   DynamicModule,
@@ -8,6 +6,10 @@ import {
   Transport,
   ClientsModule,
 } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
+import { RMQ_SERVICE } from '@app/shared/contracts';
+import { EVENT_PUBLISHER } from '@app/shared/constants';
+import { RmqEventPublisher } from '@app/shared/infrastructure/events/rmq-event-publisher';
 
 @Module({})
 export class RmqModule {
@@ -32,7 +34,13 @@ export class RmqModule {
           },
         ]),
       ],
-      exports: [ClientsModule],
+      providers: [
+        {
+          provide: EVENT_PUBLISHER,
+          useClass: RmqEventPublisher,
+        },
+      ],
+      exports: [ClientsModule, EVENT_PUBLISHER],
     };
   }
 }

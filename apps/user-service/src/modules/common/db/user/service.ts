@@ -1,7 +1,7 @@
 import { ScopeName } from '@db/user/scopes';
 import { User } from '@db/user/entity/user';
 import { USERS_REPOSITORY } from '@db/user/providers';
-import { RECORD_DO_NOT_EXIST_ERROR } from '@app/shared';
+import { RECORD_DO_NOT_EXIST_ERROR } from '@app/shared/constants';
 import { GetUserDto } from '@modules/common/db/user/dto/get-user.dto';
 import { CreateUserDto } from '@modules/common/db/user/dto/create-user.dto';
 import {

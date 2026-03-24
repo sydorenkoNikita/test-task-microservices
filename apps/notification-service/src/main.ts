@@ -4,8 +4,8 @@ import {
   Transport,
   MicroserviceOptions,
 } from '@nestjs/microservices';
+import { RMQ_NOTIFICATION_QUEUE } from '@app/shared/contracts';
 import { NotificationServiceModule } from '@modules/notification/module';
-import { RMQ_NOTIFICATION_QUEUE } from '@app/shared';
 
 async function bootstrap() {
   const app = await NestFactory.create(NotificationServiceModule);
